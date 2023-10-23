@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
+
+import { fetchFromAPI } from '../utils/api'
 
 const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -10,53 +12,44 @@ const formatDate = (dateString) => {
 }
 
 const Search = () => {
-    const [videos, setVideo ] = useState([]);
+    const { searchId } = useParams();
+    const [ videos, setVideo ] = useState([]);
 
     useEffect(() => {
-        fetch ("https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&key=AIzaSyBohIlu9qpWa57XMYASPflROW2wPedZ3Jk")
-            .then(response => response.json ())
-            .then(result => {
-                console.log(result.items);
-
-                result.items.forEach((video) => {
-                    video.snippet.publishedAt = formatDate(video.snippet.publishedAt);
-                });
-
-                setVideo(result.items)
-            })
-            .catch(error => console.log(error))
-    }, []);
+        fetchFromAPI(`search?type=video&part=snippet&q=${searchId}`)
+            .then((data) => setVideo(data.items));
+    }, [searchId]);
 
     return (
-    <section id = 'searchPage'>
-        <h2>제목</h2>
-        <div className='video__inner search'>
-           {videos.map((video, key)=> (
-                 <div className='video' key={key}>
-                 <div className='video__thumb'>
-                    <Link 
-                        to="/video/videoId"
-                        style= {{backgroundImage: `url(${video.snippet.thumbnails.high.url})`}}
-                    >   
-                    </Link>
-                 </div>
-                 <div className='video__info'>
-                     <h3 className='title'>
-                        <Link to={`/video/${video.id.videoId}`}>{video.snippet.title}</Link>
-                     </h3>
-                     <div className="desc">
-                        {video.snippet.description}
-                     </div>
-                     <div className='info'>
-                         <span className='author'>{video.snippet.channelTitle}</span>
-                         <span className='date'>{video.snippet.publishedAt}</span>
-                     </div>
-                 </div>
-             </div>
-        ))}
-        </div>
-    </section>
-  )
+        <section id='searchPage'>
+            <h2>😊{searchId} 영상입니다.</h2>
+            <div className='video__inner search'>
+                {videos.map((video, key) => (
+                    <div className='video' key={key}>
+                        <div className='video__thumb play__icon'>
+                            <Link 
+                                to={`/video/${video.id.videoId}`}
+                                style={{ backgroundImage: `url(${video.snippet.thumbnails.high.url})` }} 
+                            >
+                            </Link>
+                        </div>
+                        <div className='video__info'>
+                            <h3 className='title'>
+                                <Link to={`/video/${video.id.videoId}`}>{video.snippet.title}</Link>
+                            </h3> 
+                            <p className='desc'>
+                                {video.snippet.description}
+                            </p>
+                            <div className='info'>
+                                <span className='author'>{video.snippet.channelTitle}</span>
+                                <span className='date'>{formatDate(video.snippet.publishedAt)}</span>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </section>
+    )
 }
 
 export default Search
