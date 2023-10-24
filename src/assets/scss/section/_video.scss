@@ -6,6 +6,7 @@
     .video {
         margin-bottom: 50px;
         border: 1px solid #fff;
+        padding: 16px;
         .video__thumb {
 
             a{
@@ -20,10 +21,10 @@
 
         .video__info {
 
-            h3 {
+            .title {
                 margin-top: 10px;
                 margin-bottom: 5px;
-                @include line(2);
+                @include line-one;
                 color: #000;
             }
             .desc {
@@ -48,6 +49,7 @@
                     }
                 }
                 .date {
+                    white-space: nowrap;
                     color:#000;
                     font-size: 14px;
                 }
@@ -69,29 +71,40 @@
         .video__title{
             padding-top: 20px;
             margin-bottom: 20px;
-            font-size: 27px;
+            font-size: 30px;
+            border-bottom: 1px solid var(--black600);
+            padding-bottom: 15px;
+
         }
         .video__channel {
             display: flex;
             justify-content: space-between;
             margin-bottom: 40px;
+            margin-top: 40px;
 
             .id{
-                font-weight: 800;
                 
                 a{
-                    padding: 10px 20px;
-                    border-radius: 30px var(--black100);
+                    border: 1px solid var(--black300);
+                    padding: 7px 20px;
+                    border-radius: 30px;
                 }
             }
             .count{
                 span {
-                    border: 1px solid var(--black300);
                     padding: 7px 20px;
                     border-radius: 30px;
                     margin-left: 5px;
-                    background-color: var(--black100);
-                    color: white
+                    background-color:var(--black);
+                    color: var(--white);
+
+                    svg {
+                        color: var(--white);
+                        width: 20px;
+                        height: 20px;
+                        vertical-align: -5px;
+                        margin-right: 5px;
+                    }
                 }
             }
         }

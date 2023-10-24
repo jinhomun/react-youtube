@@ -25,22 +25,18 @@
         }
     }
     .channel__info {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        
+        margin-top: 100px;
+        color: var(--black);
+        text-align: center;
+    
         .title {
-            margin-top: 55px;
-            margin-bottom: 5px;
-            @include line(2);
-            
+            margin-bottom: 10px;
         }
         .desc {
-            width: 100%;
-            @include line(1);
-            color: var(--black300);
-            margin-bottom: 10px;
+            color: var(--black);
+            padding: 0 10vw;
+            margin-bottom: 30px;
+            overflow-wrap: anywhere;
         }
 
         .info {
@@ -54,8 +50,15 @@
                 padding: 7px 20px;
                 border-radius: 30px;
                 margin-left: 5px;
-                background-color: var(--black100);
-                color: white
+                background-color: white;
+                color: black
+                
+            }
+            svg {
+                width: 20px;
+                height: 20px;
+                vertical-align: -5px;
+                margin-right: 5px;
             }
             
         } 

@@ -3,6 +3,9 @@ import { Link,useParams } from 'react-router-dom'
 import { fetchFromAPI } from '../utils/api';
 import ReactPlayer from 'react-player';
 
+import { AiFillEye } from "react-icons/ai";
+import { FaRegCommentDots, FaThumbsUp } from "react-icons/fa";
+
 const Video = () => {
     const { videoId } = useParams();
     const [ videoDetail, setVideoDetail ] = useState(null);
@@ -14,6 +17,7 @@ const Video = () => {
                 console.log(data);
             });
     }, [videoId]);
+
 
     return (
         <section id='videoViewPage'>
@@ -34,12 +38,12 @@ const Video = () => {
                         </h2>
                         <div className='video__channel'>
                             <div className='id'>
-                                <Link to={`/channel/${videoDetail.snippet.channelTitle}`}></Link>
+                                <Link to={`/channel/${videoDetail.snippet.channelId}`}>{videoDetail.snippet.channelTitle}</Link>
                             </div>
                             <div className='count'>
-                                <span className='view'>{videoDetail.statistics.viewCount}</span>
-                                <span className='like'>{videoDetail.statistics.likeCount}</span>
-                                <span className='comment'>{videoDetail.statistics.commentCount}</span>
+                                <span className='view'><AiFillEye />{videoDetail.statistics.viewCount}</span>
+                                <span className='like'><FaThumbsUp />{videoDetail.statistics.likeCount}</span>
+                                <span className='comment'><FaRegCommentDots />{videoDetail.statistics.commentCount}</span>
                             </div>
                         </div>
                     </div>
