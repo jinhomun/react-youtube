@@ -35,7 +35,9 @@ const Video = () => {
                         <div className='video__channel'>
                             <div className='id'></div>
                             <div className='count'>
-                                <span className='view'></span>
+                                <span className='view'>
+                                  
+                                </span>
                                 <span className='like'></span>
                                 <span className='comment'></span>
                             </div>
