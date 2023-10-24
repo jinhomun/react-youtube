@@ -39,9 +39,17 @@
 
                 .author{
                     color: #000;
+                    font-size: 14px;
+                    text-decoration: underline;
+                    text-underline-position: under;
+
+                    &:hover {
+                        color:white;
+                    }
                 }
                 .date {
                     color:#000;
+                    font-size: 14px;
                 }
             }
 
@@ -60,6 +68,40 @@
 
         .video__title{
             padding-top: 20px;
+            margin-bottom: 20px;
+            font-size: 27px;
+        }
+        .video__channel {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+
+            .id{
+                font-weight: 800;
+                
+                a{
+                    padding: 10px 20px;
+                    border-radius: 30px var(--black100);
+                }
+            }
+            .count{
+                span {
+                    border: 1px solid var(--black300);
+                    padding: 7px 20px;
+                    border-radius: 30px;
+                    margin-left: 5px;
+                    background-color: var(--black100);
+                    color: white
+                }
+            }
         }
     }
+
+    .video__desc {
+        border-top: 1px solid var(--black600);
+        white-space:pre-line;
+        padding-top: 40px;
+    }
 }
+
+
