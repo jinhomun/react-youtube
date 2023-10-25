@@ -5,16 +5,21 @@ import { fetchFromAPI } from '../utils/api';
 import { GrFormView } from "react-icons/gr";
 import {MdAccessibility } from "react-icons/md";
 import { BiSolidVideos } from "react-icons/bi";
+import VideoSearch from '../components/video/VideoSearch';
 
 const Channel = () => {
     const { channelId } = useParams();
     const [ channelDetail, setChannelDetail ] = useState();
-
+    const [ channelVideo, setChannelVideo] = useState([]);
     useEffect(() => {
         const fetchResults = async () => {
             try {
                 const data = await fetchFromAPI(`channels?part=snippet&id=${channelId}`);
                 setChannelDetail(data.items[0]);
+
+                const videosData = await fetchFromAPI(`search?channelId=${channelId}&part=snippet&order=date`);
+                console.log(videosData)
+                setChannelVideo(videosData.items);
 
             } catch(error){
                 console.log("Error fetching data" , error);
@@ -22,6 +27,13 @@ const Channel = () => {
         }
         fetchResults();
     }, [channelId]);
+
+    // 구독자수 ~~만명
+    function formatSubscriberCount(subscriberCount) {
+        // 만명으로 변환
+        const formattedCount = (subscriberCount / 10000).toFixed(1);
+        return `${formattedCount}만명`;
+    }
 
     return (
         <section id='channel'>
@@ -36,12 +48,14 @@ const Channel = () => {
                         <h3 className='title'>{channelDetail.snippet.title}</h3>
                         <p className='desc'>{channelDetail.snippet.description}</p>
                         <div className='info'>
-                            <span><MdAccessibility />{channelDetail.statistics.subscriberCount}</span>
+                            <span><MdAccessibility />{formatSubscriberCount(channelDetail.statistics.subscriberCount)}</span>
                             <span><BiSolidVideos />{channelDetail.statistics.videoCount}</span>
                             <span><GrFormView />{channelDetail.statistics.viewCount}</span>
                         </div>
                     </div>
-                    <div className='channel__video video__inner'></div>
+                    <div className='channel__video video__inner'>
+                        <VideoSearch videos={channelVideo} />
+                    </div>
                     <div className='channel__more'></div>
                 </div>
             )}

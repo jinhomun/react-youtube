@@ -65,11 +65,11 @@ export const snsText = [
         icon: <AiOutlineGithub />
     },{
         title: "Instagram",
-        src: "/",
+        src: "https://www.instagram.com/jinho_m01/",
         icon: <CiInstagram />
     },{
         title: "Facebook",
-        src: "/",
+        src: "https://www.facebook.com/profile.php?id=100008125899652&locale=ko_KR",
         icon: <MdFacebook />
     }
 ]
