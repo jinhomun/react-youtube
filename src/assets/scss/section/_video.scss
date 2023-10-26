@@ -115,6 +115,22 @@
         white-space:pre-line;
         padding-top: 40px;
     }
+    .video__comments {
+        border: 2px solid rgba(255, 255, 255, 0.5);
+
+        .comment {
+
+            p {
+                display: block;
+                padding: 5px 10px;
+                border-bottom: 1px dashed rgba(255, 255, 255, 0.5);
+                margin: 5px 0;
+            }
+        }
+    }
+    
+    
+
 }
 
 

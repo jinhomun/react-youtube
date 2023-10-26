@@ -4,17 +4,22 @@ import { fetchFromAPI } from '../utils/api';
 import ReactPlayer from 'react-player';
 
 import { AiFillEye } from "react-icons/ai";
-import { FaRegCommentDots, FaThumbsUp } from "react-icons/fa";
+import { FaCommentDots, FaRegCommentDots, FaThumbsUp } from "react-icons/fa";
 
 const Video = () => {
     const { videoId } = useParams();
     const [ videoDetail, setVideoDetail ] = useState(null);
+    const [videoComments, setVideoComments] = useState([]);
 
     useEffect(() => {
         fetchFromAPI(`videos?part=snippet,statistics&id=${videoId}`)
             .then((data) => {
                 setVideoDetail(data.items[0]);
                 console.log(data);
+            });
+        fetchFromAPI(`commentThreads?part=snippet&videoId=${videoId}&maxResults=10`)
+            .then((data) => {
+                setVideoComments(data.items);
             });
     }, [videoId]);
 
@@ -49,6 +54,13 @@ const Video = () => {
                     </div>
                     <div className="video__desc">
                         {videoDetail.snippet.description}
+                    </div>
+                    <div className="video__comments">
+                            {videoComments.map((comment, index) => (
+                                <div key={index} className="comment">
+                                    <p><FaCommentDots /> {comment.snippet.topLevelComment.snippet.authorDisplayName} : {comment.snippet.topLevelComment.snippet.textOriginal}</p>
+                                </div>
+                            ))}
                     </div>
                 </div>
             )}
